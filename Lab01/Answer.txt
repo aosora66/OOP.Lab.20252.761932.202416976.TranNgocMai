@@ -1,0 +1,23 @@
+1. Chuyện gì xảy ra nếu chọn "Cancel"?:
+Nếu bạn nhấn Cancel, quá trình khởi chạy (launch) sẽ bị hủy bỏ. Chương trình sẽ không chạy và các thay đổi chưa lưu trong mã nguồn của bạn sẽ vẫn giữ nguyên trạng thái chưa lưu.
+2. Làm sao để đổi nút “Yes / No” thành nội dung mình muốn:
+Hàm showConfirmDialog() chỉ cung cấp sẵn các lựa chọn như Yes/No/Cancel và không cho phép đổi chữ. Để thay đổi bạn cần dùng showOptionDialog(), cho phép bạn tự định nghĩa nội dung các nút bằng một mảng chuỗi.
+Ví dụ, đổi thành "I do" và "I don't" :
+import javax.swing.JOptionPane;
+public class ChoosingOption{
+    public static void main(String[] args) {
+        String[] choice = {"I do", "I don't"};
+        int option= JOptionPane.showOptionDialog(null,
+                                              						"Do you want to change to the first class ticket?",
+                                                					"Option",
+                                                					JOptionPane.DEFAULT_OPTION,
+                                                					JOptionPane.QUESTION_MESSAGE,
+                                                					null,
+                                                					choice,
+                                                					choice[0]
+        );
+
+        JOptionPane.showMessageDialog(null, "You've chosen: " + choice[option]);
+        System.exit(0);
+    }
+}
