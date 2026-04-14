@@ -1,2 +1,14 @@
-Question: If you create a constructor method to build a DVD by title then create a constructor method to build a DVD by category. Does JAVA allow you to do this?
--Không . Java phân biệt các hàm khởi tạo nạp chồng dựa trên method signature, bao gồm số lượng, kiểu dữ liệu và thứ tự của các tham số.  Vì cả (title) và (category) đều có cùng kiểu dữ liệu là String, nên hai hàm khởi tạo này sẽ có cùng một chữ ký là DigitalVideoDisc(String). Java sẽ báo lỗi biên dịch vì không thể phân biệt được bạn đang muốn gọi hàm khởi tạo nào khi truyền vào một chuỗi ký tự.
+- Question: Is JAVA a Pass by Value or a Pass by Reference programming language?
+Vì sao swap() không hoạt động?
+Hàm swap() nhận bản sao của tham chiếu.
+Việc hoán đổi chỉ xảy ra trên bản sao này → không ảnh hưởng đến biến bên ngoài.
+Vì sao changeTitle() hoạt động?
+Bản sao tham chiếu vẫn trỏ đến cùng một đối tượng.
+Khi thay đổi thuộc tính của đối tượng → đối tượng gốc cũng bị thay đổi.
+=>Java luôn là pass by value.
+-Write correct swap():
+void swap(DigitalVideoDisc a, DigitalVideoDisc b) {
+    String temp = a.getTitle();
+    a.setTitle(b.getTitle());
+    b.setTitle(temp);
+}
