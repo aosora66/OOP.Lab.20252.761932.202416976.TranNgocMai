@@ -43,5 +43,33 @@ public class Cart {
         addDigitalVideoDisc(dvd1);
         addDigitalVideoDisc(dvd2);
     }
+    public void printCart(){
+        System.out.println("***********************CART***********************\nOrdered Items:");
+        for(int i=0; i<qtyOrdered; i++){
+            System.out.println((i+1)+". DVD - "+itemsOrdered[i].toString());
+        }
+        System.out.println("Total cost: "+totalCost());
+        System.out.println("***************************************************");
+    }
+    public void searchID(int id){
+        boolean t=false;
+        for(int i=0; i<qtyOrdered; i++){
+            if(itemsOrdered[i].getId()==id) {
+                t=true;
+                System.out.println((i+1)+". DVD - "+itemsOrdered[i].toString());
+            }
+        }
+        if(!t) System.out.println("Khong tim thay!");
+    }
+    public void searchTitle(String title){
+        boolean t=false;
+        for(int i=0; i<qtyOrdered; i++){
+            if(itemsOrdered[i].isMatch(title)) {
+                t=true;
+                System.out.println((i+1)+". DVD - "+itemsOrdered[i].toString());
+            }
+        }
+        if(!t) System.out.println("Khong tim thay!");
+    }
 
 }
