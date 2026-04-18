@@ -1,5 +1,7 @@
 package hust.soict.ite6.aims.cart;
 
+import hust.soict.ite6.aims.disc.DigitalVideoDisc;
+
 public class Cart {
     public static final int MAX_NUMBERS_ORDERED = 20;
     private DigitalVideoDisc[] itemsOrdered = new DigitalVideoDisc[MAX_NUMBERS_ORDERED];
@@ -36,7 +38,7 @@ public class Cart {
             addDigitalVideoDisc(dvd);
         }
     }
-//    public void addDigitalVideoDisc(hust.soict.ite6.aims.disc.DigitalVideoDisc... dvds){
+    //    public void addDigitalVideoDisc(hust.soict.ite6.aims.disc.DigitalVideoDisc... dvds){
 //        for(hust.soict.ite6.aims.disc.DigitalVideoDisc dvd: dvds){
 //            addDigitalVideoDisc(dvd);
 //        }
