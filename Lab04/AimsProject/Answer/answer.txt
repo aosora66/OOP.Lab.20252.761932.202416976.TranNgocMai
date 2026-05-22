@@ -1,0 +1,21 @@
+Tra loi Q1 Phan 9:
+Các lớp là tập hợp (aggregates) của các lớp khác bao gồm:
+
+1. Lớp Cart (tập hợp các đối tượng Media).
+2. Lớp Store (tập hợp các đối tượng Media).
+3. Lớp CompactDisc (tập hợp các đối tượng Track).
+Về việc kiểm tra hàm khởi tạo: Trong các lớp này, các thành phần danh sách (như itemsOrdered, itemsInStore, tracks) đều đã được khởi tạo ngay tại vị trí khai báo thuộc tính bằng từ khóa new ArrayList. Do đó, các constructor không cần thiết phải viết thêm mã để khởi tạo lại chúng nữa.
+
+Tra loi Q2 Phan 10:
+Nếu đối tượng truyền vào không phải là một thể hiện (instance) của lớp Media, việc cố tình ép kiểu (cast) nó sang kiểu Media sẽ gây ra lỗi ClassCastException và làm chương trình bị sập. Tuy nhiên, vì chúng ta đã sử dụng từ khóa "instanceof" để kiểm tra điều kiện ngay từ đầu, nên lỗi này được ngăn chặn hoàn toàn, chương trình không bị sập và hàm equals() sẽ chỉ trả về false một cách an toàn.
+
+Tra loi Q3 Phan 11:
+Hiện tượng: Khi chạy vòng lặp duyệt qua danh sách và gọi hàm toString(), mặc dù biến chạy đang được khai báo là kiểu Media, nhưng chuỗi in ra màn hình lại mang định dạng đặc trưng riêng của từng loại mặt hàng thực tế (có chữ Book, CD hoặc DVD).
+Giải thích: Đây là sự thể hiện của tính Đa hình (Polymorphism) thông qua cơ chế Liên kết động (Dynamic Binding). Tại thời điểm chạy chương trình (runtime), máy ảo Java (JVM) sẽ tự động nhận diện kiểu đối tượng thực sự đang được lưu trong bộ nhớ là lớp con nào, từ đó gọi đúng phương thức toString() đã được ghi đè (override) của riêng lớp con đó chứ không gọi hàm của lớp cha.
+
+Tra loi Q4 Phan 12:
+
+1. Lớp cha Media là lớp nên triển khai (implement) giao diện Comparable.
+2. Trong lớp Media, phương thức compareTo(Media other) sẽ được định nghĩa để thiết lập một quy tắc sắp xếp mặc định. Ví dụ: ta lấy tiêu đề ra so sánh trước, nếu tiêu đề giống hệt nhau thì ta mới tiếp tục lấy giá ra để so sánh.
+3. Không. Giao diện Comparable chỉ cho phép ghi đè một phương thức compareTo() duy nhất, có nghĩa là mỗi lớp chỉ có thể định nghĩa duy nhất 1 quy tắc sắp xếp. Để có thể sử dụng hai hoặc nhiều quy tắc sắp xếp khác nhau, ta bắt buộc phải sử dụng giao diện Comparator.
+4. Để làm được điều này, ta sẽ tạo một lớp mới triển khai giao diện Comparator. Trong phương thức compare(Media m1, Media m2), ta sử dụng từ khóa "instanceof" để kiểm tra xem cả hai đối tượng truyền vào có cùng là kiểu DigitalVideoDisc hay không. Nếu đúng là DVD, ta ép kiểu chúng sang DigitalVideoDisc rồi tiến hành so sánh theo luật riêng: tiêu đề -> chiều dài giảm dần -> giá. Nếu chúng không phải là DVD, ta áp dụng quy tắc so sánh chung mặc định của Media.
