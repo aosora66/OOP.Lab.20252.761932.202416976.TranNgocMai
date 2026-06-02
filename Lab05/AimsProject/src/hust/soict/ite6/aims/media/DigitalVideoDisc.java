@@ -7,25 +7,25 @@ public class DigitalVideoDisc extends Disc implements Playable{
 
     // constructor
     public DigitalVideoDisc(String title) {
-        super(0, title, null, 0.0f, null, 0);
+        super(title, null, 0.0f, null, 0);
         nbDigitalVideoDiscs++;
         setId(nbDigitalVideoDiscs);
     }
 
     public DigitalVideoDisc(String title, String category, float cost) {
-        super(0, title, category, cost, null, 0);
+        super(title, category, cost, null, 0);
         nbDigitalVideoDiscs++;
         setId(nbDigitalVideoDiscs);
     }
 
     public DigitalVideoDisc(String director, String category, String title, float cost) {
-        super(0, title, category, cost, director, 0);
+        super(title, category, cost, director, 0);
         nbDigitalVideoDiscs++;
         setId(nbDigitalVideoDiscs);
     }
 
     public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-        super(0, title, category, cost, director, length);
+        super(title, category, cost, director, length);
         nbDigitalVideoDiscs++;
         setId(nbDigitalVideoDiscs);
     }

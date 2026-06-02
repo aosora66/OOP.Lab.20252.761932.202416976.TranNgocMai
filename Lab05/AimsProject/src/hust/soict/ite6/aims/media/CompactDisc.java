@@ -10,8 +10,8 @@ public class CompactDisc extends Disc implements Playable{
     private List<Track> tracks=new ArrayList<Track>();
 
     // constructor
-    public CompactDisc(int id, String title, String category, float cost, String director, int length, String artist) {
-        super(id, title, category, cost, director, length);
+    public CompactDisc(String title, String category, float cost, String director, int length, String artist) {
+        super(title, category, cost, director, length);
         this.artist = artist;
     }
 
@@ -37,13 +37,13 @@ public class CompactDisc extends Disc implements Playable{
     }
     
     // length
-    public int getLength(){
-        int l=0;
-        for(Track song: tracks){
-            l+=song.getLength();
-        }
-        return l;
-    }
+//    public int getLength(){
+//        int l=0;
+//        for(Track song: tracks){
+//            l+=song.getLength();
+//        }
+//        return l;
+//    }
 
     // play
     @Override

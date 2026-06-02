@@ -1,21 +1,172 @@
-Tra loi Q1 Phan 9:
-Các lớp là tập hợp (aggregates) của các lớp khác bao gồm:
+------------------------------------------------------------------------
+MỤC 1.3: SO SÁNH CÁC THÀNH PHẦN GIỮA SWING VÀ AWT
+------------------------------------------------------------------------
+Mặc dù cả hai thư viện đều chia sẻ chung mô hình xử lý sự kiện (Event-
+Delegation Model) và các trình quản lý bố cục cơ bản, giữa chúng có 
+những khác biệt cốt lõi sau:
 
-1. Lớp Cart (tập hợp các đối tượng Media).
-2. Lớp Store (tập hợp các đối tượng Media).
-3. Lớp CompactDisc (tập hợp các đối tượng Track).
-Về việc kiểm tra hàm khởi tạo: Trong các lớp này, các thành phần danh sách (như itemsOrdered, itemsInStore, tracks) đều đã được khởi tạo ngay tại vị trí khai báo thuộc tính bằng từ khóa new ArrayList. Do đó, các constructor không cần thiết phải viết thêm mã để khởi tạo lại chúng nữa.
+1. Bản chất thành phần:
+   - AWT (Abstract Window Toolkit): Là các thành phần nặng (Heavyweight).
+     Chúng phụ thuộc trực tiếp vào các thành phần giao diện của hệ điều
+     hành gốc (Peer). Giao diện của ứng dụng AWT chạy trên Windows sẽ 
+     trông giống Windows, chạy trên macOS sẽ giống macOS.
+   - Swing: Là các thành phần nhẹ (Lightweight). Chúng được vẽ hoàn 
+     toàn bằng mã nguồn Java trên một tấm nền trống, không phụ thuộc 
+     vào hệ điều hành. Điều này giúp Swing hỗ trợ khả năng thay đổi 
+     giao diện linh hoạt (Pluggable Look and Feel).
 
-Tra loi Q2 Phan 10:
-Nếu đối tượng truyền vào không phải là một thể hiện (instance) của lớp Media, việc cố tình ép kiểu (cast) nó sang kiểu Media sẽ gây ra lỗi ClassCastException và làm chương trình bị sập. Tuy nhiên, vì chúng ta đã sử dụng từ khóa "instanceof" để kiểm tra điều kiện ngay từ đầu, nên lỗi này được ngăn chặn hoàn toàn, chương trình không bị sập và hàm equals() sẽ chỉ trả về false một cách an toàn.
+2. Vùng chứa cấp cao nhất (Top-level Container):
+   - AWT sử dụng lớp "Frame", cho phép thêm trực tiếp các thành phần 
+     con thông qua phương thức add(Component).
+   - Swing sử dụng lớp "JFrame". Lập trình viên không thể thêm trực 
+     tiếp lên cửa sổ chính mà phải lấy ra tấm nền nội dung của nó 
+     thông qua getContentPane().add(Component).
 
-Tra loi Q3 Phan 11:
-Hiện tượng: Khi chạy vòng lặp duyệt qua danh sách và gọi hàm toString(), mặc dù biến chạy đang được khai báo là kiểu Media, nhưng chuỗi in ra màn hình lại mang định dạng đặc trưng riêng của từng loại mặt hàng thực tế (có chữ Book, CD hoặc DVD).
-Giải thích: Đây là sự thể hiện của tính Đa hình (Polymorphism) thông qua cơ chế Liên kết động (Dynamic Binding). Tại thời điểm chạy chương trình (runtime), máy ảo Java (JVM) sẽ tự động nhận diện kiểu đối tượng thực sự đang được lưu trong bộ nhớ là lớp con nào, từ đó gọi đúng phương thức toString() đã được ghi đè (override) của riêng lớp con đó chứ không gọi hàm của lớp cha.
+3. Tên gọi lớp: 
+   Các lớp giao diện của Swing hầu hết được cải tiến từ AWT và bắt đầu 
+   bằng chữ cái 'J'.
+   - Nhãn chữ: Label (AWT) -> JLabel (Swing)
+   - Ô nhập liệu: TextField (AWT) -> JTextField (Swing)
 
-Tra loi Q4 Phan 12:
 
-1. Lớp cha Media là lớp nên triển khai (implement) giao diện Comparable.
-2. Trong lớp Media, phương thức compareTo(Media other) sẽ được định nghĩa để thiết lập một quy tắc sắp xếp mặc định. Ví dụ: ta lấy tiêu đề ra so sánh trước, nếu tiêu đề giống hệt nhau thì ta mới tiếp tục lấy giá ra để so sánh.
-3. Không. Giao diện Comparable chỉ cho phép ghi đè một phương thức compareTo() duy nhất, có nghĩa là mỗi lớp chỉ có thể định nghĩa duy nhất 1 quy tắc sắp xếp. Để có thể sử dụng hai hoặc nhiều quy tắc sắp xếp khác nhau, ta bắt buộc phải sử dụng giao diện Comparator.
-4. Để làm được điều này, ta sẽ tạo một lớp mới triển khai giao diện Comparator. Trong phương thức compare(Media m1, Media m2), ta sử dụng từ khóa "instanceof" để kiểm tra xem cả hai đối tượng truyền vào có cùng là kiểu DigitalVideoDisc hay không. Nếu đúng là DVD, ta ép kiểu chúng sang DigitalVideoDisc rồi tiến hành so sánh theo luật riêng: tiêu đề -> chiều dài giảm dần -> giá. Nếu chúng không phải là DVD, ta áp dụng quy tắc so sánh chung mặc định của Media.
+------------------------------------------------------------------------
+MỤC 2.2.3: GIẢI THÍCH LOGIC CHO NÚT BẤM DEL VÀ C TRONG NUMBERGRID
+------------------------------------------------------------------------
+Trình lắng nghe ButtonListener thực thi giao diện ActionListener. Khi 
+một nút bấm được kích hoạt, phương thức actionPerformed(ActionEvent e) 
+giao tiếp với hệ thống và lấy ra nhãn chữ của nút đó thông qua 
+e.getActionCommand().
+
+1. Logic cho nút 'C' (Clear):
+   - Phương thức xử lý: Gọi trực tiếp lệnh tfDisplay.setText("").
+   - Giải thích: Đặt lại toàn bộ nội dung hiển thị trong ô văn bản thành 
+     một chuỗi rỗng để xóa sạch màn hình về trạng thái trống ban đầu.
+
+2. Logic cho nút 'DEL' (Delete):
+   - Phương thức xử lý:
+     String currentText = tfDisplay.getText();
+     if (currentText != null && currentText.length() > 0) {
+         tfDisplay.setText(currentText.substring(0, currentText.length() - 1));
+     }
+   - Giải thích: Đầu tiên lấy chuỗi ký tự hiện tại ra. Điều kiện 
+     "currentText.length() > 0" đóng vai trò cực kỳ quan trọng để đảm bảo 
+     ô hiển thị không trống. Nếu ô không trống, hàm substring(0, length - 1) 
+     bắt đầu cắt bỏ chính xác một ký tự cuối cùng ở bên phải chuỗi và 
+     cập nhật lại giao diện, tránh phát sinh lỗi chỉ mục âm 
+     StringIndexOutOfBoundsException khi người dùng nhấn cố.
+
+
+------------------------------------------------------------------------
+MỤC 4: CƠ CHẾ HOẠT ĐỘNG CỦA ỨNG DỤNG VẼ ĐỒ HỌA (PAINTER) BẰNG JAVAFX
+------------------------------------------------------------------------
+Ứng dụng Painter hoạt động dựa trên cơ chế "Lắng nghe sự kiện kéo chuột"
+(Mouse Dragged Event Handling) trên một tấm nền vẽ cố định:
+
+1. Vùng vẽ (Drawing Area): Sử dụng một vùng chứa (thường là Pane hoặc 
+   AnchorPane) đóng vai trò làm bảng vẽ đồ họa.
+2. Bắt tọa độ tương tác: Khi người dùng nhấn và liên tục di chuyển chuột 
+   trên vùng vẽ, một sự kiện chuột (MouseEvent) sẽ liên tục được kích hoạt.
+3. Cơ chế tạo hình: Tại mỗi thời điểm bắt được sự kiện di chuyển chuột, 
+   chương trình trích xuất tọa độ hiện thời của con trỏ thông qua e.getX() 
+   và e.getY(). Một đối tượng hình học nhỏ (thường là một hình tròn Circle 
+   có bán kính rất nhỏ từ 2-4 pixel đóng vai trò là một vệt màu) sẽ được 
+   khởi tạo ngay tại tọa độ đó.
+4. Hiển thị đồ họa: Đối tượng hình tròn này sau đó được thêm trực tiếp vào 
+   danh sách phần tử con của bảng vẽ thông qua câu lệnh:
+   drawingAreaPane.getChildren().add(circle);
+   Khi chuột di chuyển liên tục, hàng loạt hình tròn nhỏ được xếp chồng 
+   khít lên nhau tạo thành hiệu ứng nét vẽ mượt mà trên giao diện giao tiếp.
+
+
+------------------------------------------------------------------------
+MỤC 12: TRÌNH BÀY CƠ CHẾ XỬ LÝ NGOẠI LỆ TRONG HỆ THỐNG AIMS
+------------------------------------------------------------------------
+Hệ thống AIMS áp dụng cơ chế "Ủy quyền và Chuyển tiếp Ngoại lệ" 
+(Exception Propagation) kết hợp bọc lỗi có cấu trúc để tách biệt giữa 
+tầng xử lý logic nghiệp vụ và tầng giao diện hiển thị:
+
+1. Tầng Logic nghiệp vụ (Backend / Media / Player): 
+   Khi các điều kiện logic không được thỏa mãn (ví dụ: phát một đĩa DVD 
+   có độ dài bằng 0, hoặc thêm sản phẩm không hợp lệ), hệ thống sẽ không 
+   cố gắng tự sửa lỗi hay in ra console. Thay vào đó, nó chủ động khởi tạo 
+   và ném ra một ngoại lệ có cấu trúc bằng từ khóa "throw". Phương thức 
+   chứa đoạn code đó sẽ khai báo từ khóa "throws" ở chữ ký hàm để đẩy 
+   trách nhiệm xử lý lên cấp gọi cao hơn.
+
+2. Tầng Điều khiển và Giao diện (Controller / GUI Screen): 
+   Các lớp giao diện (như StoreScreen, CartScreen) khi gọi đến các hàm 
+   nghiệp vụ bắt buộc phải bọc chúng trong khối lệnh try - catch. 
+
+3. Cơ chế phản hồi người dùng: 
+   Khi khối catch bắt được ngoại lệ, thay vì làm sập ứng dụng, nó sẽ trích 
+   xuất thông báo lỗi bằng hàm getMessage() và đẩy thông tin này lên màn 
+   hình cho người dùng dưới dạng một hộp thoại cảnh báo trực quan thông qua 
+   JOptionPane.showMessageDialog (đối với Swing) hoặc Alert (đối với JavaFX).
+
+
+------------------------------------------------------------------------
+MỤC 13: TRÌNH BÀY VỀ LỚP NGOẠI LỆ PLAYEREXCEPTION TRONG AIMS PROJECT
+------------------------------------------------------------------------
+Lớp PlayerException là một "Ngoại lệ có kiểm tra" (Checked Exception) 
+được xây dựng tùy biến bằng cách kế thừa trực tiếp từ lớp Exception gốc 
+của Java:
+
+1. Mục đích: Lớp này được thiết kế riêng cho các đối tượng đa phương tiện 
+   có khả năng phát dữ liệu (thực thi giao diện Playable) như 
+   DigitalVideoDisc và CompactDisc. Nó dùng để cảnh báo các lỗi nghiêm 
+   trọng phát sinh trong quá trình giả lập hoặc kết nối phần cứng phát 
+   âm thanh/hình ảnh (ví dụ: độ dài âm bản, không có track).
+2. Cấu trúc mã nguồn: Lớp này định nghĩa các hàm khởi tạo nhận thông điệp 
+   lỗi (String message) hoặc nguyên nhân cốt lõi (Throwable cause) để 
+   chuyển tiếp lên lớp cha thông qua từ khóa super(message).
+3. Đặc điểm bắt buộc: Vì là một Checked Exception, bất kỳ phương thức nào 
+   gọi đến hàm .play() của sản phẩm đều bị trình biên dịch Java ép buộc 
+   phải nằm trong khối try - catch hoặc tiếp tục khai báo "throws PlayerException" 
+   ở chữ ký hàm. Điều này đảm bảo tính an toàn tuyệt đối cho hệ thống.
+
+
+------------------------------------------------------------------------
+MỤC 15: GIẢI THÍCH PHƯƠNG THỨC EQUALS() TRONG LỚP MEDIA
+------------------------------------------------------------------------
+Phương thức equals(Object obj) trong lớp Media được ghi đè (@Override) 
+từ lớp Object của Java nhằm thay đổi hành vi so sánh từ "so sánh địa chỉ 
+vùng nhớ" (so sánh tham chiếu) sang "so sánh giá trị logic thuộc tính" 
+(so sánh nội dung):
+
+1. Logic kiểm tra an toàn: Đầu tiên, hàm kiểm tra xem đối tượng truyền vào 
+   obj có bị null hay không, và có cùng thuộc nhóm phân cấp dữ liệu của 
+   Media hay không bằng từ khóa "instanceof". Nếu không thỏa mãn, lập tức 
+   trả về false để tránh lỗi sập hệ thống.
+2. Tiêu chí định danh: Định danh duy nhất của một vật phẩm Media trong 
+   cửa hàng AIMS được quyết định dựa trên thuộc tính Tiêu đề (title).
+3. Xử lý so sánh chuỗi: Sau khi ép kiểu đối tượng obj về kiểu Media, hàm 
+   tiến hành so sánh thuộc tính title của hai đối tượng bằng phương thức 
+   this.title.equals(other.getTitle()). Nếu tiêu đề hoàn toàn trùng khớp, 
+   hai đối tượng được coi là một sản phẩm duy nhất, giúp hệ thống ngăn 
+   chặn việc thêm trùng lặp sản phẩm vào Store hoặc Cart.
+
+
+------------------------------------------------------------------------
+MỤC 17: MÔ TẢ CÂY PHÂN CẤP NGOẠI LỆ TRONG AIMS PROJECT
+------------------------------------------------------------------------
+Hệ thống quản lý ngoại lệ trong AIMS Project được phân cấp tường minh, 
+kế thừa từ cấu trúc chuẩn của Java nhằm phân tách rõ ràng giữa lỗi hệ 
+thống không thể kiểm soát và lỗi nghiệp vụ của phần mềm:
+
+java.lang.Object
+   └── java.lang.Throwable
+        ├── java.lang.Exception (Checked Exceptions - Bắt buộc phải xử lý)
+        │    └── aims.exception.PlayerException (Lỗi phát Media độ dài không hợp lệ)
+        │
+        └── java.lang.RuntimeException (Unchecked Exceptions - Lỗi logic lập trình)
+             ├── java.lang.NullPointerException (Lỗi biến đối tượng trỏ vào vùng null)
+             └── java.lang.IllegalArgumentException (Lỗi truyền tham số sai định dạng)
+
+- Nhánh Checked Exception (PlayerException): Kế thừa trực tiếp từ Exception. 
+  Đại diện cho các lỗi khách quan có thể xảy ra trong quá trình vận hành hệ 
+  thống đa phương tiện mà lập trình viên bắt buộc phải lường trước và viết 
+  mã nguồn xử lý ứng phó ngay từ khi biên dịch.
+- Nhánh Unchecked Exception (RuntimeException): Gồm các lỗi phát sinh do sai 
+  sót trong logic viết mã nguồn của lập trình viên. Nhóm lỗi này không bắt 
+  buộc phải khai báo bằng từ khóa throws mà cần được khắc phục triệt để bằng 
+  cách tối ưu hóa thuật toán và kiểm tra dữ liệu đầu vào cẩn thận.

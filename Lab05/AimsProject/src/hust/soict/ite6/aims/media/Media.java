@@ -3,19 +3,22 @@ package hust.soict.ite6.aims.media;
 import java.util.Comparator;
 
 public abstract class Media {
+    private static int nbMedia = 0; // biến static đếm số thứ tự
+
     private int id;
     private String title;
     private String category;
     private float cost;
 
-    // constructor
-    public Media(){};
+    public Media() {
+        this.id = ++nbMedia;
+    }
 
-    public Media(int id, String title, String category, float cost) {
-        this.id=id;
-        this.title=title;
-        this.category=category;
-        this.cost=cost;
+    public Media(String title, String category, float cost) {
+        this.id = ++nbMedia; // Tự động tăng và gán ID
+        this.title = title;
+        this.category = category;
+        this.cost = cost;
     }
 
     public String toString(){

@@ -6,6 +6,7 @@ import hust.soict.ite6.aims.exception.PlayerException;
 import hust.soict.ite6.aims.media.*;
 
 import hust.soict.ite6.aims.media.*;
+import hust.soict.ite6.aims.screen.StoreScreen;
 import hust.soict.ite6.aims.store.Store;
 
 import java.util.ArrayList;
@@ -25,21 +26,34 @@ public class Aims {
         DigitalVideoDisc dvd1= new DigitalVideoDisc("3月のライオン", "Animation", "Akiyuki Shinbo", 66, 22.22f);
         DigitalVideoDisc dvd2 = new DigitalVideoDisc("葬送のフリーレン", "Animation", "Keiichirou Saitou", 99, 66.66f);
 
-        Book book1 = new Book(10, "Harry Potter", "Fantasy", 15.50f);
+        Book book1 = new Book("Harry Potter", "Fantasy", 15.50f);
         book1.addAuthor("J.K. Rowling");
 
-        CompactDisc cd1 = new CompactDisc(20, "Adele 21", "Music", 20.0f, "Sony Music", 45, "Adele");
+        CompactDisc cd1 = new CompactDisc("Adele 21", "Music", 20.0f, "Sony Music", 45, "Adele");
         Track track1 = new Track("Rolling in the Deep", 4);
         Track track2 = new Track("Someone Like You", 5);
         cd1.addTrack(track1);
         cd1.addTrack(track2);
+
+        Book book2 = new Book("Bup sen xanh", "History", 68f);
 
         // Thêm vào Store
         store.addMedia(dvd1); itemsInStoreList.add(dvd1);   cart.addMedia(dvd1);
         store.addMedia(dvd2); itemsInStoreList.add(dvd2);
         store.addMedia(book1); itemsInStoreList.add(book1); cart.addMedia(book1);
         store.addMedia(cd1);  itemsInStoreList.add(cd1);
+        store.addMedia(book2); itemsInStoreList.add(book2); cart.addMedia(book2);
+        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Gintama", "Action", "Sorachi", 90, 50f);
+        store.addMedia(dvd3); itemsInStoreList.add(dvd3);
+
         System.out.println("--- Store pre-populated with sample data --- \n");
+
+        // test
+//        DigitalVideoDisc errorDvd = new DigitalVideoDisc("Lỗi đĩa", "Animation", "Test", 0, 10.0f); // Length = 0
+//        store.addMedia(errorDvd);
+
+        // 4. Khởi chạy Màn hình chính của Cửa hàng
+        new StoreScreen(store);
 
         int choice;
         do {

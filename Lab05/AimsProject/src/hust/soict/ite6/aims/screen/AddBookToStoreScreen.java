@@ -5,7 +5,6 @@ import hust.soict.ite6.aims.store.Store;
 import javax.swing.*;
 
 public class AddBookToStoreScreen extends AddItemToStoreScreen {
-    private JTextField tfId;
     private JTextField tfTitle;
     private JTextField tfCategory;
     private JTextField tfCost;
@@ -17,9 +16,6 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
 
     @Override
     protected void createInputFields() {
-        centerPanel.add(new JLabel("ID: "));
-        tfId = new JTextField();
-        centerPanel.add(tfId);
 
         centerPanel.add(new JLabel("Title: "));
         tfTitle = new JTextField();
@@ -36,14 +32,12 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
 
     @Override
     protected void addItemToStore() {
-        // Lấy dữ liệu từ các ô nhập (Lưu ý: nhập đúng số cho ID và Cost để không bị lỗi)
-        int id = Integer.parseInt(tfId.getText());
         String title = tfTitle.getText();
         String category = tfCategory.getText();
         float cost = Float.parseFloat(tfCost.getText());
 
         // Khởi tạo đối tượng Book và thêm vào Store
-        Book book = new Book(id, title, category, cost);
+        Book book = new Book(title, category, cost);
         store.addMedia(book);
 
         JOptionPane.showMessageDialog(this, "Book Added Successfully!");

@@ -15,17 +15,30 @@ public abstract class AddItemToStoreScreen extends JFrame {
 
         cp.add(createMenuBar(), BorderLayout.NORTH);
 
+        JPanel wrapperPanel = new JPanel();
+        wrapperPanel.setLayout(new BorderLayout());
+        wrapperPanel.setBorder(BorderFactory.createEmptyBorder(50, 200, 50, 200));
+
         centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(0, 2, 5, 5));
+        centerPanel.setLayout(new GridLayout(0, 2, 10, 20));
 
         createInputFields();
 
-        // Nút bấm chung để Add
-        JButton btnAdd = new JButton("Add Item");
-        btnAdd.addActionListener(e -> addItemToStore());
-        centerPanel.add(btnAdd);
+        wrapperPanel.add(centerPanel, BorderLayout.NORTH);
 
-        cp.add(centerPanel, BorderLayout.CENTER);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+
+        JButton btnAdd = new JButton("Add Item");
+        btnAdd.setFont(new Font("Arial", Font.BOLD, 18));
+        btnAdd.setPreferredSize(new Dimension(150, 40));
+        btnAdd.addActionListener(e -> addItemToStore());
+
+        buttonPanel.add(btnAdd);
+        wrapperPanel.add(buttonPanel, BorderLayout.CENTER);
+
+        cp.add(wrapperPanel, BorderLayout.CENTER);
 
         setTitle("Add Item to Store");
         setSize(1024, 768);

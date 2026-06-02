@@ -25,7 +25,6 @@ public class CartScreen extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
 
-        // Bắt buộc phải chạy các tiến trình JavaFX trong luồng xử lý riêng của nó (JavaFX Application Thread)
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

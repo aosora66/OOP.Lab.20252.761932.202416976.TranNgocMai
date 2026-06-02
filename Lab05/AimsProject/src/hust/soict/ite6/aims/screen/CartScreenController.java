@@ -148,6 +148,28 @@ public class CartScreenController {
         cart.getItemsOrdered().clear(); // Xóa sạch giỏ hàng sau khi đặt
     }
 
+    // === XỬ LÝ SỰ KIỆN NÚT SORT (TÍNH NĂNG ĐIỂM THƯỞNG) ===
+    @FXML
+    void btnSortByTitlePressed(javafx.event.ActionEvent event) {
+        this.cart.sortByTitle();
+    }
+
+    @FXML
+    void btnSortByCostPressed(javafx.event.ActionEvent event) {
+        this.cart.sortByCost();
+    }
+
+    // === XỬ LÝ CHUYỂN TRANG QUAY LẠI CỬA HÀNG ===
+    @FXML
+    void btnViewStorePressed(javafx.event.ActionEvent event) {
+        try {
+            javafx.stage.Window window = tblMedia.getScene().getWindow();
+            window.hide();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // === XỬ LÝ SỰ KIỆN NÚT PLAY ===
     @FXML
     void btnPlayPressed(javafx.event.ActionEvent event) {

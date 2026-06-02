@@ -5,7 +5,6 @@ import hust.soict.ite6.aims.store.Store;
 import javax.swing.*;
 
 public class AddCDToStoreScreen extends AddItemToStoreScreen {
-    private JTextField tfId;
     private JTextField tfTitle;
     private JTextField tfCategory;
     private JTextField tfCost;
@@ -20,10 +19,6 @@ public class AddCDToStoreScreen extends AddItemToStoreScreen {
 
     @Override
     protected void createInputFields() {
-        centerPanel.add(new JLabel("ID: "));
-        tfId = new JTextField();
-        centerPanel.add(tfId);
-
         centerPanel.add(new JLabel("Title: "));
         tfTitle = new JTextField();
         centerPanel.add(tfTitle);
@@ -52,7 +47,6 @@ public class AddCDToStoreScreen extends AddItemToStoreScreen {
     @Override
     protected void addItemToStore() {
         // Ép kiểu các trường dữ liệu
-        int id = Integer.parseInt(tfId.getText());
         String title = tfTitle.getText();
         String category = tfCategory.getText();
         float cost = Float.parseFloat(tfCost.getText());
@@ -61,7 +55,7 @@ public class AddCDToStoreScreen extends AddItemToStoreScreen {
         String artist = tfArtist.getText();
 
         // Khởi tạo đối tượng CompactDisc
-        CompactDisc cd = new CompactDisc(id, title, category, cost, director, length, artist);
+        CompactDisc cd = new CompactDisc(title, category, cost, director, length, artist);
         store.addMedia(cd);
 
         JOptionPane.showMessageDialog(this, "CD Added Successfully!");
